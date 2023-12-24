@@ -1,0 +1,63 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.apptheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Primary brand color. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="SplashScreen" parent="@style/Theme.apptheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+    </style>
+    <style name="Base.TextAppearance.AppCompat.Body1" parent="@android:style/TextAppearance.Material.Body1" />
+    <style name="TextAppearance.AppCompat.Body1" parent="@style/Base.TextAppearance.AppCompat.Body1" />
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>`
+    <style name="AppToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:itemTextAppearance">@style/menu_item_color</item>
+    </style>
+    <style name="menu_item_color">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="SegmentedButton">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">0.0dip</item>
+        <item name="android:paddingRight">0.0dip</item>
+        <item name="android:button">@null</item>
+        <item name="android:minWidth">58.0dip</item>
+        <item name="android:minHeight">33.0dip</item>
+    </style>
+    <style name="SubHeader" parent="@style/TextAppearance.AppCompat.Subhead" />
+    <style name="Body" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+    <style name="Progress.Orange" parent="@style/Progress">
+        <item name="android:progressDrawable">@drawable/progress_orange</item>
+    </style>
+    <style name="Progress.Orange.Sharp" parent="@style/Progress.Orange">
+        <item name="android:progressDrawable">@drawable/progress_orange_sharpedge</item>
+    </style>
+    <style name="Progress" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:maxHeight">8.0dip</item>
+        <item name="android:minHeight">8.0dip</item>
+    </style>
+</resources>

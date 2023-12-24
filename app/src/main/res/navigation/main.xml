@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/info_page">
+
+    <fragment
+        android:id="@+id/info_page"
+        android:name="com.example.ag_analizi.AgBilgisiFragment"
+        android:label="Ağ Bilgisi"
+        tools:layout="@layout/fragment_ag_bilgisi" />
+    <fragment
+        android:id="@+id/signal_page"
+        android:name="com.example.ag_analizi.WifiFragment"
+        android:label="Wifi Ağları"
+        tools:layout="@layout/fragment_wifi" />
+    <fragment
+        android:id="@+id/lan_page"
+        android:name="com.example.ag_analizi.LanTaramaFragment"
+        android:label="LAN Tarama"
+        tools:layout="@layout/fragment_lan_tarama" />
+    <fragment
+        android:id="@+id/tools_page"
+        android:name="com.example.ag_analizi.AraclarFragment"
+        android:label="Araçlar"
+        tools:layout="@layout/fragment_araclar" />
+    <fragment
+        android:id="@+id/usage_page"
+        android:name="com.example.ag_analizi.VeriKullanimiFragment"
+        android:label="Veri Kullanımı"
+        tools:layout="@layout/fragment_veri_kullanimi" />
+</navigation>

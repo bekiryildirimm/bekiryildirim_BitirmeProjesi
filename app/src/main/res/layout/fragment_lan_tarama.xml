@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ag_bilgi_bg"
+    tools:context=".LanTaramaFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical" android:id="@+id/lanTaramaHeaderClyt" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:autofit="http://schemas.android.com/apk/res-auto">
+        <ProgressBar android:id="@+id/progressBar" android:layout_width="0.0dip" android:layout_height="3.0dip" android:layout_marginTop="8.0dip" android:layout_marginStart="16.0dip" android:layout_marginEnd="16.0dip" autofit:layout_constraintEnd_toEndOf="parent" autofit:layout_constraintStart_toStartOf="parent" autofit:layout_constraintTop_toTopOf="parent" style="?android:progressBarStyleHorizontal" />
+        <me.grantland.widget.AutofitTextView  android:textSize="14.0sp" android:textColor="@color/row_subsubtitle" android:gravity="center_vertical" android:id="@id/textLeft" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="180.0dip" android:text="text" android:maxLines="1" android:textAllCaps="false" autofit:layout_constraintBaseline_toBaselineOf="@id/textRight" autofit:layout_constraintStart_toStartOf="@id/progressBar" autofit:minTextSize="10.0dip" />
+        <TextView android:textColor="@color/row_subsubtitle" android:gravity="end|center" android:id="@+id/textRight" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:maxWidth="120.0dip" android:minWidth="100.0dip" android:text="text" android:maxLines="1" android:textAllCaps="false" android:layout_marginStart="4.0dip" autofit:layout_constraintEnd_toEndOf="@id/progressBar" autofit:layout_constraintStart_toEndOf="@+id/textLeft" autofit:layout_constraintTop_toBottomOf="@id/progressBar" />
+        <TextView android:textColor="@color/header_caption" android:id="@id/title" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginBottom="4.0dip" android:text="text" android:textAllCaps="true" autofit:layout_constraintBottom_toBottomOf="parent" autofit:layout_constraintEnd_toEndOf="@id/progressBar" autofit:layout_constraintStart_toStartOf="@id/progressBar" autofit:layout_constraintTop_toBottomOf="@+id/textRight" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- TODO: Update blank fragment layout -->
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/lanTaramaRecyclerView" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lan Tarama Fragment"
+        android:layout_gravity="center"/>
+    </LinearLayout>
+</ScrollView>

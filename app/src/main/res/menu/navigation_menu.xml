@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group1" android:checkableBehavior="single">
+        <item android:icon="@drawable/baseline_event_note_24" android:id="@+id/info_page" android:title="Ağ Bilgisi" />
+        <item android:icon="@drawable/baseline_settings_input_antenna_24" android:id="@+id/signal_page" android:title="Wi-Fi Ağları" />
+        <item android:icon="@drawable/baseline_device_hub_24" android:id="@+id/lan_page" android:title="LAN Tarama" />
+        <item android:icon="@drawable/baseline_business_center_24" android:id="@+id/tools_page" android:title="Araçlar" />
+        <item android:icon="@drawable/data_usage_24" android:id="@+id/usage_page" android:title="Veri Kullanımı" />
+    </group>
+    <group android:id="@+id/group2" android:checkableBehavior="single">
+        <item android:icon="@drawable/black_settings_24" android:id="@+id/settings_page" android:title="Ayarlar" />
+    </group>
+</menu>

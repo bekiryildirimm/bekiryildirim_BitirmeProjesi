@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/ic_filter" android:id="@+id/menu_app_time" android:title="Veri Kullanımı" app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/menu_app_time_today" android:title="Bugün" />
+            <item android:id="@+id/menu_app_time_last_7" android:title="Bu Hafta" />
+            <item android:id="@+id/menu_app_time_last_30" android:title="Bu Ay" />
+            <item android:id="@+id/menu_app_time_billing_cycle" android:title="Fatura Dönemi" />
+        </menu>
+    </item>
+</menu>

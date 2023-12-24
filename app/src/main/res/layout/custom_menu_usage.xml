@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    style="@style/Widget.AppCompat.ActionButton"
+    android:clickable="true">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/usageMenuTv"
+    android:text="Seçenekler"
+    android:textColor="@color/white"/>
+    
+    <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/usageMenuIcon"
+    android:src="@drawable/settings_white_24"/>
+    
+</LinearLayout>

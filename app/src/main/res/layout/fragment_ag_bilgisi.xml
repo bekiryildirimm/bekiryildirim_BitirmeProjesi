@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ag_bilgi_bg"
+    tools:context=".AgBilgisiFragment"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AKTİF BAĞLANTI"
+        android:layout_gravity="left"
+        android:layout_marginStart="10.0dip"
+        android:layout_marginTop="10.0dip"
+/>
+    <View android:background="@color/grid_color" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"  />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/baglantiTuruTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bağlantı Türü" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/baglantiTuruTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/baglantiTuruIcon" app:layout_constraintStart_toEndOf="@id/baglantiTuruTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/baglantiTuruIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/HariciIpClyt" android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/HariciIpTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Harici IP" android:layout_marginStart="16.0dip" app:layout_constraintBaseline_toBaselineOf="@+id/HariciIpTv" app:layout_constraintStart_toStartOf="parent" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/row_value" android:gravity="end|center" android:id="@+id/HariciIpTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="8.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/HariciIpbtn" app:layout_constraintStart_toEndOf="@+id/HariciIpTitle" app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/tint_color" android:gravity="end|center" android:id="@+id/HariciIpbtn" android:background="?selectableItemBackground" android:paddingTop="6.0dip" android:paddingBottom="6.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="45.0dip" android:minHeight="25.0dip" android:text="Yeniden Yükle" android:textAllCaps="false" android:paddingStart="4.0dip" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/HariciIPv6Clyt" android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/HariciIPv6Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Harici IPv6" android:layout_marginStart="16.0dip" app:layout_constraintBaseline_toBaselineOf="@+id/HariciIPv6Tv" app:layout_constraintStart_toStartOf="parent" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/row_value" android:gravity="end|center" android:id="@+id/HariciIPv6Tv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="8.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/HariciIPv6btn" app:layout_constraintStart_toEndOf="@+id/HariciIPv6Title" app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/tint_color" android:gravity="end|center" android:id="@+id/HariciIPv6btn" android:background="?selectableItemBackground" android:paddingTop="6.0dip" android:paddingBottom="6.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="45.0dip" android:minHeight="25.0dip" android:text="Yeniden Yükle" android:textAllCaps="false" android:paddingStart="4.0dip" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+
+
+    <TextView
+        android:id="@+id/wifiBaglantiTitletv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WİFİ BAĞLANTISI"
+       android:layout_gravity="left"
+        android:layout_marginStart="10.0dip"
+        android:layout_marginTop="10.0dip"
+        />
+        <!--Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wifiBaglantiTitlebtn"
+           android:layout_marginRight="20.0dp"
+            android:text="Ayarlar"
+            android:textSize="14.0sp"
+
+            /-->
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/ipAdresTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="IP Adresi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/ipAdresTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/ipAdresTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/subnetMaskTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Subnet Mask" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/subnetMaskTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/subnetMaskTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/gatewayIpTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Varsayılan Ağ Geçidi Ip Adresi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/gatewayIpTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/gatewayIpTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/dnsServerIpTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dns Sunucu IP Adresi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/dnsServerIpTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/dnsServerIpTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/ipv6AdresiTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="IPv6 Adresleri" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/ipv6AdresiTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/ipv6AdresiTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/gatewayIpv6Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Varsayılan Ağ Geçidi IPv6 Adresi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/gatewayIpv6Tv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/gatewayIpv6Title" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/dnsServerIpv6Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DNS Sunucu IPv6 Adresi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/dnsServerIpv6Tv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/dnsServerIpv6Title" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <TextView
+        android:id="@+id/wifiDetayTitletv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WİFİ BAĞLANTI DETAY"
+        android:layout_gravity="left"
+        android:layout_marginStart="10.0dip"
+        android:layout_marginTop="10.0dip"
+        />
+    <View android:background="@color/grid_color" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"  />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/etkinTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Etkin" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/etkinTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/etkinIcon" app:layout_constraintStart_toEndOf="@id/etkinTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/etkinIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/baglantiDurumuTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bağlantı Durumu" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/baglantiDurumuTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/baglantiDurumuIcon" app:layout_constraintStart_toEndOf="@id/baglantiDurumuTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/baglantiDurumuIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/dhcpKiraTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DHCP Kira Süresi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/dhcpKiraTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/dhcpKiraTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/ssidTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SSID" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/ssidTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/ssidTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/bssidTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BSSID" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/bssidTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/bssidTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/saticiTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Satıcı" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/saticiTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/saticiTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/kanalTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kanal" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/kanalTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/kanalTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/standartTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Standart" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/standartTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/standartTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/hizTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hız (İndirme/Yükleme)" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/hizTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/hizTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/maxHizTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Max. Hız (İndirme/Yükleme)" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/maxHizTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/maxHizTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/wifiSignalTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sinyal Gücü" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/wifiSignalTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/wifiSignalTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <TextView
+        android:id="@+id/mobilDetayTitletv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MOBİL BAĞLANTI DETAY"
+        android:layout_gravity="left"
+        android:layout_marginStart="10.0dip"
+        android:layout_marginTop="10.0dip"
+        />
+    <View android:background="@color/grid_color" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"  />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/veriDurumTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Veri Durumu" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/veriDurumTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/veriDurumIcon" app:layout_constraintStart_toEndOf="@id/veriDurumTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/veriDurumIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/veriAktiviteTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Veri Aktivitesi" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/veriAktiviteTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/veriAktiviteIcon" app:layout_constraintStart_toEndOf="@id/veriAktiviteTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/veriAktiviteIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/veriDolasimTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Veri Dolaşımı" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/veriDolasimTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/veriDolasimIcon" app:layout_constraintStart_toEndOf="@id/veriDolasimTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/veriDolasimIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/simDurumTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sim Durumu" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/simDurumTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/simDurumIcon" app:layout_constraintStart_toEndOf="@id/simDurumTitle" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@+id/simDurumIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginEnd="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/simOperatorTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sim Operatörü" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/simOperatorTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/simOperatorTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/simMccTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sim MCC/MNC" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/simMccTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/simMccTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/agTipiTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ağ Türü" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/agTipiTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/agTipiTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/telefonTipiTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon Türü" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/telefonTipiTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/telefonTipiTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/mobilSinyalTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sinyal Gücü" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/mobilSinyalTv" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/mobilSinyalTitle" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <!--androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/list_content3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="text" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/list_content4" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/list_content3" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   />
+
+    <androidx.constraintlayout.widget.ConstraintLayout  android:background="@color/row_background" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView android:textColor="@color/row_title" android:id="@+id/list_content3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="text" android:layout_marginStart="16.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textColor="@color/row_value" android:gravity="end" android:id="@+id/list_content4" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="5.0dip" android:text="text" android:layout_marginStart="4.0dip" android:layout_marginEnd="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/list_content3" app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/grey_300" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.100000024dip"   /-->
+
+
+
+
+</LinearLayout>
+</ScrollView>
