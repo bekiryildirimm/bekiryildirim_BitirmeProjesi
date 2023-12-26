@@ -14,7 +14,32 @@
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
         android:theme="@style/ToolbarTheme"
-        app:popupTheme="@style/Theme.AppCompat.NoActionBar"/>
+        app:popupTheme="@style/Theme.AppCompat.NoActionBar">
+        <ImageView
+            android:id="@+id/veriToolbarTakvimbtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_calendar_month_24"
+            android:layout_gravity="center"
+           android:layout_marginEnd="45dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/veritoolbarTv"
+            android:text="Bugün"
+           android:layout_gravity="center"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/veriToolbarOkbtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow_drop_down_24"
+            android:layout_gravity="center"
+            android:layout_marginStart="45dp"/>
+
+    </com.google.android.material.appbar.MaterialToolbar>
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/veriTv"

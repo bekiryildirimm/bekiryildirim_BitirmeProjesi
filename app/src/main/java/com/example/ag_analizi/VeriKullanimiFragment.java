@@ -1,9 +1,14 @@
 package com.example.ag_analizi;
 
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,16 +18,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.RemoteException;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,8 +43,15 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class VeriKullanimiFragment extends Fragment {
-
-    MenuItem usageitem;
+TextView ToolbarTv,VeriTv;
+ImageView ToolbarOkbtn,ToolbarTakvimbtn;
+int gun=-30;
+int agTuru=ConnectivityManager.TYPE_WIFI;
+long butun;
+NetworkStatsManager stats;
+NetworkStats netstat;
+NetworkStats.Bucket bucket;
+MenuItem usageitem;
     RecyclerView recyclerView;
     List<VeriKullanimiItems> items;
     VeriKullanimiAdapter adapter;
@@ -80,21 +99,109 @@ public class VeriKullanimiFragment extends Fragment {
         items=new ArrayList<VeriKullanimiItems>();
       pm= getActivity().getPackageManager();
       info=pm.getInstalledApplications(PackageManager.GET_META_DATA);
+  stats=(NetworkStatsManager) getActivity().getApplicationContext().getSystemService(Context.NETWORK_STATS_SERVICE);
+       // VeriTv.setText(Long.toString((ButunCihaz(stats, ConnectivityManager.TYPE_WIFI,Milisaniye(gun)/(1024*1024))))); //Long.toString((ButunCihaz(stats, ConnectivityManager.TYPE_WIFI,Milisaniye(gun)/(1024*1024))));
+      // String str=Long.toString((ButunCihaz(stats, ConnectivityManager.TYPE_WIFI,Milisaniye(gun)/(1024*1024))))+"MB";
+     //  VeriTv.setText("veli");
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_veri_kullanimi, container, false);
+        View view=inflater.inflate(R.layout.fragment_veri_kullanimi, container, false);
+        ToolbarOkbtn=view.findViewById(R.id.veriToolbarOkbtn);
+        ToolbarTv=view.findViewById(R.id.veritoolbarTv);
+        ToolbarTakvimbtn=view.findViewById(R.id.veriToolbarTakvimbtn);
+        VeriTv=view.findViewById(R.id.veriTv);
+        ToolbarOkbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickers(v);
+            }
+
+        });
+        ToolbarTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickers(v);
+            }
+
+        });
+        ToolbarTakvimbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickers(v);
+            }
+        });
+       // VeriTv.setText(Long.toString((ButunCihaz(stats, ConnectivityManager.TYPE_WIFI,Milisaniye(gun))/(1024*1024))));
+        return view;
+        //return inflater.inflate(R.layout.fragment_veri_kullanimi, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+      // butun= ButunCihaz(stats, ConnectivityManager.TYPE_WIFI,Milisaniye(gun))/(1024*1024);
+       // VeriTv.setText(Long.toString(butun)+"Mb");
+
+    }
+
+    public long Milisaniye(int gun)
+    {
+        Calendar calendar=Calendar.getInstance();
+        calendar.add(Calendar.DATE,gun);
+        return calendar.getTimeInMillis();
+    }
+    public void onClickers(View v) {
+        PopupMenu popupMenu=new PopupMenu(getActivity().getApplicationContext(), ToolbarOkbtn);
+        popupMenu.getMenuInflater().inflate(R.menu.veri_kullanimi_toolbar, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ToolbarTv.setText(item.getTitle());
+                /*items.clear();
+                adapter=new VeriKullanimiAdapter(items);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(adapter);*/
+              //  if(item.getItemId()==)
+
+                if(item.getItemId()==R.id.menu_app_time_today)
+                {
+                    secenekbtn(agTuru,-1);
+                }
+                else if(item.getItemId()==R.id.menu_app_time_last_7)
+                {
+                    secenekbtn(agTuru,-7);
+                }
+                else if(item.getItemId()==R.id.menu_app_time_last_30)
+                {
+                    secenekbtn(agTuru,-30);
+                }
+                else if(item.getItemId()==R.id.menu_app_time_billing_cycle)
+                {
+
+                }
+
+
+                return true;
+            }
+        });
+
+        popupMenu.show();
+
+        //  popupMenu.setOnMenuItemClickListener();
+        // ToolbarTv.setText("evet");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       /* for (int i=0;i<30;i++)
-            items.add(new VeriKullanimiItems(null,(i*3),"1","2"));*/
-        for(ApplicationInfo ai:info)
+       // for (int i=0;i<30;i++)
+         //   items.add(new VeriKullanimiItems(null,(i*3),"1","2"));
+       /* for(ApplicationInfo ai:info)
         {
             try {
                 //Drawable drawable=ai.i
@@ -106,8 +213,8 @@ public class VeriKullanimiFragment extends Fragment {
 
             }
 
-            }
-
+            }*/
+        UygulamalaricinSorgu();
         adapter=new VeriKullanimiAdapter(items);
         recyclerView=view.findViewById(R.id.veriKullanimRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -137,6 +244,7 @@ public class VeriKullanimiFragment extends Fragment {
 
         else if(item.getItemId()==R.id.hepsiMenubtn)
        {
+          // secenekbtn(-1234,gun);
    usageitem.setTitle("Hepsi");
    return true;
        }
@@ -146,15 +254,87 @@ public class VeriKullanimiFragment extends Fragment {
            s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, s.length(), 0);
            //item.setTitle(s);
            usageitem.setTitle(s);
+           secenekbtn(ConnectivityManager.TYPE_WIFI,gun);
            return true;
        }
        else if(item.getItemId()==R.id.mobilMenubtn)
        {
            usageitem.setTitle("Mobil");
+           secenekbtn(ConnectivityManager.TYPE_MOBILE,gun);
            return true;
        }
         else
             item.setTitle("s2");
             return super.onOptionsItemSelected(item);
     }
+
+    public long ButunCihaz(NetworkStatsManager stats,int agTuru,long milisaniye)
+    {
+
+        long rx,tx;
+        try {
+
+
+            bucket = stats.querySummaryForDevice(agTuru, null, milisaniye, System.currentTimeMillis());
+        }
+        catch (RemoteException e)
+        {
+
+        }
+        return bucket.getTxBytes()+ bucket.getRxBytes();
+
+
+    }
+    public void secenekbtn(int agTuru,int gun)
+    {
+        this.agTuru=agTuru;
+        this.gun=gun;
+        items.clear();
+        UygulamalaricinSorgu();
+       // adapter=new VeriKullanimiAdapter(items);
+       // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        //ButunCihaz(stats,agTuru,Milisaniye(gun));
+     //   VeriTv.setText(Long.toString((ButunCihaz(stats,agTuru,Milisaniye(gun))/(1024*1024)))+"MB");
+
+    }
+
+    public void UygulamalaricinSorgu()
+    {
+        long rx,tx;
+        boolean check;
+        int progc;
+      butun=ButunCihaz(stats,agTuru,Milisaniye(gun))/(1024*1024);
+      VeriTv.setText(butun+"MB");
+       for(ApplicationInfo ai:info)
+       {
+        netstat=stats.queryDetailsForUid(agTuru,null,Milisaniye(gun),System.currentTimeMillis(),ai.uid);
+
+
+   rx=0;
+   tx=0;
+   check=netstat.hasNextBucket();
+    while(netstat.hasNextBucket())
+    {
+     if(bucket.getUid()==ai.uid)
+     {
+     rx+=(bucket.getRxBytes()+bucket.getTxBytes());
+     //tx+=bucket.getTxBytes();
+     }
+     netstat.getNextBucket(bucket);
+    } netstat.close();
+   rx/=(1024*1024);
+
+    if(check) {
+        items.add(new VeriKullanimiItems(ai.loadIcon(pm), (((int) rx*100) / (int) butun), (String) pm.getApplicationLabel(ai), rx + "MB"/*+(((int) rx*100) / ((int) butun))*/,(int)rx));
+    }
+
+    // items.add(new VeriKullanimiItems(ai.loadIcon(pm), 50, (String)pm.getApplicationLabel(ai) , "5"));
+
+       }
+       items.sort(new veriComparator());
+      // items.sort(Comparator<VeriKullanimiItems>);
+    }
+
 }

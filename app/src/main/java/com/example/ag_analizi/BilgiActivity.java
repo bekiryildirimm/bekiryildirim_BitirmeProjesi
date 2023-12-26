@@ -15,7 +15,10 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import android.Manifest;
+import android.app.AppOpsManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -34,6 +37,12 @@ public class BilgiActivity extends AppCompatActivity {
         {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] { permission }, requestCode);
         }*/
+        AppOpsManager appop=(AppOpsManager) getSystemService(APP_OPS_SERVICE);
+        int mode=appop.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,android.os.Process.myUid(),getPackageName());
+        if(mode!=AppOpsManager.MODE_ALLOWED)
+            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+
+
         ActivityResultLauncher<String[]> locationPermissionRequest =
                 registerForActivityResult(new ActivityResultContracts
                                 .RequestMultiplePermissions(), result -> {

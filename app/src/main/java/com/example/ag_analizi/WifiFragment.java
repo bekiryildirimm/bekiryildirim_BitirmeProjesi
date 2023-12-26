@@ -1,9 +1,19 @@
 package com.example.ag_analizi;
 
+import static android.os.Build.VERSION_CODES.TIRAMISU;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.wifi.MloLink;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,9 +31,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class WifiFragment extends Fragment {
-
-
+String[] channelwid={"20MHz","40MHz","80MHz","160MHz","80+80MHz","320MHz"};
+WifiManager wifiManager;
     RecyclerView recyclerView;
+    List<ScanResult> scanResults;
     List<wifiSinyalitems> items;
     WifiTaramaAdapter adapter;
     // TODO: Rename parameter arguments, choose names that match
@@ -66,7 +77,41 @@ public class WifiFragment extends Fragment {
         }
    //     adapter=new WifiTaramaAdapter()
        items=new ArrayList<wifiSinyalitems>();
-        items.add(new wifiSinyalitems("1","2","3","4","5","6"));
+        //items.add(new wifiSinyalitems("1","2","3","4","5","6"));
+   wifiManager=(WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
+
+  //wifiManager.startScan();
+        if (wifiManager.startScan()) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            scanResults = wifiManager.getScanResults();
+
+            for (ScanResult sr : scanResults) {
+              /*  List<MloLink> mloLinks= null;
+                if (Build.VERSION.SDK_INT >= TIRAMISU) {
+                    mloLinks = sr.getAffiliatedMloLinks();
+                }
+                int chan=1;
+
+      for(MloLink ml:mloLinks)
+      {
+          if (Build.VERSION.SDK_INT >= TIRAMISU) {
+              chan=ml.getChannel();
+          }
+      }*/
+
+                items.add(new wifiSinyalitems(channelwid[sr.channelWidth], sr.SSID,/*Integer.toString(sr.level)*/sr.level+" dBm",sr.BSSID,sr.capabilities,sr.frequency+""));
+            }
+        }
+
     }
 
     @Override
@@ -84,8 +129,8 @@ public class WifiFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        for(int i=0;i<30;i++)
-        items.add(new wifiSinyalitems("15","25","3","4","5","6"));
+        //for(int i=0;i<30;i++)
+       // items.add(new wifiSinyalitems("15","25","3","4","5","6"));
 
         adapter=new WifiTaramaAdapter(items);
         recyclerView=view.findViewById(R.id.wifiTaramaRecyclerView);

@@ -6,6 +6,7 @@ android {
     namespace = "com.example.ag_analizi"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.example.ag_analizi"
         minSdk = 24

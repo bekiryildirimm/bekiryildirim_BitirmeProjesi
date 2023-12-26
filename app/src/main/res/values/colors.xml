@@ -36,4 +36,16 @@
     <color name="accent">#ffff9800</color>
     <color name="accent_light">#ffffcc80</color>
     <color name="orange_toned">#ffffc947</color>
+    <color name="system_blue">@color/blue_grey</color>
+    <color name="system_brown">@color/brown</color>
+    <color name="system_cyan">@color/cyan</color>
+    <color name="system_green">#ff4caf50</color>
+    <color name="system_grey">@color/grey_400</color>
+    <color name="system_purple">#ffab47bc</color>
+    <color name="system_red">@color/deep_orange</color>
+    <color name="system_yellow">@color/amber_dark</color>
+    <color name="brown">#ff795548</color>
+    <color name="cyan">#ff00bcd4</color>
+    <color name="deep_orange">#ffff5722</color>
+    <color name="amber_dark">#ffffb300</color>
 </resources>
