@@ -1,5 +1,6 @@
 package com.example.ag_analizi;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Message;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +38,7 @@ import java.util.concurrent.TimeUnit;
 public class LanTaramaFragment extends Fragment {
 TextView suankiIp, kalanSayisi, agAdi;
 ProgressBar progressBar;
+private boolean durBaslabutoncheck=false;
 Handler handler=new Handler(); /*{
     @Override
     public void handleMessage(@NonNull Message msg/*,int finalI,String[] ip,String subnetIp) {
@@ -140,15 +144,40 @@ LanTaramaAdapter adapter;
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
       inflater.inflate(R.menu.dur_basla_menu,menu);
-
+        MenuItem menuItem=menu.getItem(0);
+        SpannableString dur = new SpannableString("Başla");
+        dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
+        menuItem.setTitle(dur);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        if(!durBaslabutoncheck)
+        {
+            SpannableString dur = new SpannableString("Dur");
+            dur.setSpan(new ForegroundColorSpan(Color.RED), 0, dur.length(), 0);
+            item.setTitle(dur);
+            suankiIp.setVisibility(View.VISIBLE);
+            kalanSayisi.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+            pingGonder();
+            durBaslabutoncheck=true;
+            return true;
+        }
+        else if(durBaslabutoncheck)
+        {
 
-               suankiIp.setVisibility(View.VISIBLE);
+            SpannableString dur = new SpannableString("Başla");
+            dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
+            item.setTitle(dur);
+            thread.interrupt();
+
+            durBaslabutoncheck=false;
+            return true;
+        }
+    /*           suankiIp.setVisibility(View.VISIBLE);
                kalanSayisi.setVisibility(View.VISIBLE);
                progressBar.setVisibility(View.VISIBLE);
                pingGonder();
@@ -157,7 +186,7 @@ LanTaramaAdapter adapter;
             suankiIp.setVisibility(View.GONE);
             kalanSayisi.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
-        }
+        }*/
 
 
 
@@ -229,7 +258,8 @@ public  void pingGonder()
             String subnetIp="192.168.1.";
             final String[] ip = new String[1];
             for(int i=0;i<=255;i++) {
-
+if(Thread.currentThread().isInterrupted())
+    break;
                 int finalI = i;
                 //int finalI1 = i;
                 handler.post(new Runnable() {
