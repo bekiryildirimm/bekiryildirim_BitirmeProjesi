@@ -27,7 +27,7 @@ public class PingAdapter extends RecyclerView.Adapter<PingViewHolder> {
     holder.pingHostAdiTv.setText(items.get(position).getHostAdi());
         holder.pingIpTv.setText(items.get(position).getIpAdresi());
         holder.pingSiraNoTv.setText(Integer.toString(items.get(position).getSiraNo()));
-        holder.pingSureTv.setText(items.get(position).getSure()+" ms");
+        holder.pingSureTv.setText(items.get(position).getSure());
         holder.pingTaramaIcon.setImageResource(items.get(position).getPingItemIcon());
 
 

@@ -6,10 +6,11 @@ public class PingItems {
     int pingItemIcon;
     int SiraNo;
     String IpAdresi;
-   long sure;
+ //  String sure;
+    String sure;
    String HostAdi;
 
-    public PingItems(int pingItemIcon, int siraNo, String ipAdresi, long sure, String hostAdi) {
+    public PingItems(int pingItemIcon, int siraNo, String ipAdresi, String sure, String hostAdi) {
 
         this.pingItemIcon = pingItemIcon;
         SiraNo = siraNo;
@@ -30,7 +31,7 @@ public class PingItems {
         return IpAdresi;
     }
 
-    public long getSure() {
+    public String getSure() {
         return sure;
     }
 

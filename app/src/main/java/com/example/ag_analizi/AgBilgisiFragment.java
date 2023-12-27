@@ -289,11 +289,11 @@ agTipiTv.setText("Bilinmiyor");
         return null;
     }
     private boolean executeCommand(){
-        System.out.println("executeCommand");
-        Runtime runtime = Runtime.getRuntime();
-        try
-        {
-            Process  mIpAddrProcess = runtime.exec("/system/bin/ping -c 1 192.168.1.125");
+            System.out.println("executeCommand");
+            Runtime runtime = Runtime.getRuntime();
+            try
+            {
+                Process  mIpAddrProcess = runtime.exec("/system/bin/ping -c 1 192.168.1.125");
             int mExitValue = mIpAddrProcess.waitFor();
             System.out.println(" mExitValue "+mExitValue);
             Process process=runtime.exec("ip neigh show");
