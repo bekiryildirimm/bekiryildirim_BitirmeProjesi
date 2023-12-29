@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.os.RemoteException;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -43,9 +44,14 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class VeriKullanimiFragment extends Fragment {
-TextView ToolbarTv,VeriTv;
+
+    Runnable runnable;
+    Thread thread;
+    Handler handler=new Handler();
+
+    TextView ToolbarTv,VeriTv;
 ImageView ToolbarOkbtn,ToolbarTakvimbtn;
-int gun=-30;
+int gun=-1;
 int agTuru=ConnectivityManager.TYPE_WIFI;
 long butun;
 NetworkStatsManager stats;
@@ -180,10 +186,7 @@ MenuItem usageitem;
                 {
                     secenekbtn(agTuru,-30);
                 }
-                else if(item.getItemId()==R.id.menu_app_time_billing_cycle)
-                {
 
-                }
 
 
                 return true;
@@ -218,7 +221,7 @@ MenuItem usageitem;
         adapter=new VeriKullanimiAdapter(items);
         recyclerView=view.findViewById(R.id.veriKullanimRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+      //  recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -242,12 +245,7 @@ MenuItem usageitem;
            return true;
        }
 
-        else if(item.getItemId()==R.id.hepsiMenubtn)
-       {
-          // secenekbtn(-1234,gun);
-   usageitem.setTitle("Hepsi");
-   return true;
-       }
+
        else if(item.getItemId()==R.id.wifiMenubtn)
        {
            SpannableString s = new SpannableString("Wifi");
@@ -290,7 +288,13 @@ MenuItem usageitem;
         this.agTuru=agTuru;
         this.gun=gun;
         items.clear();
+
+
+
         UygulamalaricinSorgu();
+
+
+
        // adapter=new VeriKullanimiAdapter(items);
        // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -299,8 +303,130 @@ MenuItem usageitem;
      //   VeriTv.setText(Long.toString((ButunCihaz(stats,agTuru,Milisaniye(gun))/(1024*1024)))+"MB");
 
     }
+    public void UygulamalaricinSorgu() {
 
-    public void UygulamalaricinSorgu()
+        butun = ButunCihaz(stats, agTuru, Milisaniye(gun)) / (1024);
+
+String birim="";
+        float butunf=(float)butun;
+        butunf/=1024.0f;
+       if(butun/(1024*1024)==0)
+       {
+           birim=" MB";
+       }
+       else if(butun/(1024*1024)!=0)
+       {
+           butunf/=1024.0f;
+           birim=" GB";
+       }
+
+
+
+
+
+        VeriTv.setText(Float.toString(butunf).substring(0,Float.toString(butunf).indexOf(".")+2) + birim);
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                final long[] rx = new long[1];
+                final long[] tx = new long[1];
+                final boolean[] check = new boolean[1];
+                int progc;
+                for (ApplicationInfo ai : info) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                                netstat = stats.queryDetailsForUid(agTuru, null, Milisaniye(gun), System.currentTimeMillis(), ai.uid);
+
+
+                                rx[0] = 0;
+                                tx[0] = 0;
+                                check[0] = netstat.hasNextBucket();
+                                while (netstat.hasNextBucket()) {
+                                    if (bucket.getUid() == ai.uid) {
+                                        rx[0] += (bucket.getRxBytes() + bucket.getTxBytes());
+                                        //tx+=bucket.getTxBytes();
+                                    }
+                                    netstat.getNextBucket(bucket);
+                                }
+                                netstat.close();
+                                long rx2=rx[0];
+                                rx[0] /= (1024);
+                            String birim2="";
+                            float rxf=(float)rx[0];
+                            rxf/=1024.0f;
+                           if(rx[0]==0)
+                           {
+                               check[0]=false;
+                           }
+                           else if(rx[0]/1024==0)
+                            {
+
+                               rxf=rx2/1024.0f;
+                               birim2=" KB";
+                            }
+                          else if(rx[0]/(1024*1024)==0)
+                            {
+                                birim2=" MB";
+                            }
+                            else if(rx[0]/(1024*1024)!=0)
+                            {
+                                rxf/=1024.0f;
+                                birim2=" GB";
+                            }
+                                if (check[0]) {
+                                    items.add(new VeriKullanimiItems(ai.loadIcon(pm), (((int) rx[0] * 100) / (int) butun), (String) pm.getApplicationLabel(ai), Float.toString(rxf).substring(0,Float.toString(rxf).indexOf(".")+2) + birim2, (int) rx[0]));
+
+                                    items.sort(new veriComparator());
+                                    recyclerView.setAdapter(adapter);
+                                }
+
+                        }
+                    });
+                    try {
+                        Thread.sleep(20);
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+        };
+        thread = new Thread(runnable);
+        thread.start();
+      /*  for(ApplicationInfo ai:info)
+        {
+            netstat=stats.queryDetailsForUid(agTuru,null,Milisaniye(gun),System.currentTimeMillis(),ai.uid);
+
+
+            rx=0;
+            tx=0;
+            check=netstat.hasNextBucket();
+            while(netstat.hasNextBucket())
+            {
+                if(bucket.getUid()==ai.uid)
+                {
+                    rx+=(bucket.getRxBytes()+bucket.getTxBytes());
+                    //tx+=bucket.getTxBytes();
+                }
+                netstat.getNextBucket(bucket);
+            } netstat.close();
+            rx/=(1024*1024);
+
+            if(check) {
+                items.add(new VeriKullanimiItems(ai.loadIcon(pm), (((int) rx*100) / (int) butun), (String) pm.getApplicationLabel(ai), rx + "MB"/*+(((int) rx*100) / ((int) butun)),(int)rx));
+            }
+
+            // items.add(new VeriKullanimiItems(ai.loadIcon(pm), 50, (String)pm.getApplicationLabel(ai) , "5"));
+
+        }
+        items.sort(new veriComparator());
+        // items.sort(Comparator<VeriKullanimiItems>);
+    }*/
+    }
+    public void UygulamalaricinSorgu1()
     {
         long rx,tx;
         boolean check;
@@ -327,7 +453,7 @@ MenuItem usageitem;
    rx/=(1024*1024);
 
     if(check) {
-        items.add(new VeriKullanimiItems(ai.loadIcon(pm), (((int) rx*100) / (int) butun), (String) pm.getApplicationLabel(ai), rx + "MB"/*+(((int) rx*100) / ((int) butun))*/,(int)rx));
+        items.add(new VeriKullanimiItems(ai.loadIcon(pm), (((int) rx*100) / (int) butun), (String) pm.getApplicationLabel(ai), rx + "MB",(int)rx));
     }
 
     // items.add(new VeriKullanimiItems(ai.loadIcon(pm), 50, (String)pm.getApplicationLabel(ai) , "5"));

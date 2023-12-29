@@ -49,7 +49,9 @@ import java.util.stream.Stream;
  */
 public class AgBilgisiFragment extends Fragment {
    public static String AgSsid;
-
+public static int subnetUzunlugu;
+public static byte[] subnetRaw;
+public  static String subnetAdresi;
     WifiManager wifiManager;
     Stream<String> arpre;
     WifiInfo wifiInfo;
@@ -263,6 +265,18 @@ agTipiTv.setText("Bilinmiyor");
                 }
             }
         }*/
+        String rawadres="";
+        for(byte raw:subnetRaw)
+        {
+           // rawadres+=raw+"\n";
+
+        //    rawadres+=Integer.toBinaryString(raw&0xFF)+"\n";
+              rawadres+=(raw&0xFF)+"\n";
+        }
+
+
+        etkinTv.setText(rawadres);
+
 //etkinTv.setText(srer);
         return view;
     }
@@ -414,6 +428,16 @@ int[] simdurumuiconu={R.drawable.circle_red,R.drawable.circle_red,R.drawable.cir
         }
         return addresses;
     }
+    private String getSubnetAddress(int address)
+    {
+        String ipString = String.format(
+                "%d.%d.%d",
+                (address & 0xff),
+                (address >> 8 & 0xff),
+                (address >> 16 & 0xff));
+
+        return ipString;
+    }
     private static String[] formatCihazIpAddresses(LinkProperties prop) {
         if (prop == null) return null;
        // Iterator<LinkAddress> iter = prop.getLinkAddresses().iterator();
@@ -445,8 +469,13 @@ int[] simdurumuiconu={R.drawable.circle_red,R.drawable.circle_red,R.drawable.cir
            // if (route.hasGateway())
             if(route.isDefaultRoute())
                 adresler[3]+=route.getGateway().getHostAddress();
-                if((!route.isDefaultRoute())&&route.getDestination().getPrefixLength()<=32)
-                adresler[4]+=/*route.getDestination().getAddress().getHostName()+route.getDestination().getAddress().toString().replace("/","")+"/"+route.getDestination().getPrefixLength()+*/route.getDestination().toString();
+            
+                if((!route.isDefaultRoute())&&route.getDestination().getPrefixLength()<=32) {
+                    adresler[4] +=/*route.getDestination().getAddress().getHostName()+route.getDestination().getAddress().toString().replace("/","")+"/"+route.getDestination().getPrefixLength()+*/route.getDestination().toString();
+  subnetUzunlugu=route.getDestination().getPrefixLength();
+  subnetAdresi=route.getDestination().getAddress().toString().replace("/","");
+  subnetRaw=route.getDestination().getAddress().getAddress();
+                }
         }
 
 

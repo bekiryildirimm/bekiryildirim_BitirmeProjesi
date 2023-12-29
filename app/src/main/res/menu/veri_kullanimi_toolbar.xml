@@ -5,7 +5,7 @@
             <item android:id="@+id/menu_app_time_today" android:title="Bugün" />
             <item android:id="@+id/menu_app_time_last_7" android:title="Bu Hafta" />
             <item android:id="@+id/menu_app_time_last_30" android:title="Bu Ay" />
-            <item android:id="@+id/menu_app_time_billing_cycle" android:title="Fatura Dönemi" />
+
 
 
 </menu>

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -162,7 +163,8 @@ LanTaramaAdapter adapter;
             suankiIp.setVisibility(View.VISIBLE);
             kalanSayisi.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            pingGonder();
+        //    pingGonder();
+            PingGonder2();
             durBaslabutoncheck=true;
             return true;
         }
@@ -173,7 +175,9 @@ LanTaramaAdapter adapter;
             dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
             item.setTitle(dur);
             thread.interrupt();
-
+            suankiIp.setVisibility(View.GONE);
+            kalanSayisi.setVisibility(View.GONE);
+            progressBar.setVisibility(View.INVISIBLE);
             durBaslabutoncheck=false;
             return true;
         }
@@ -199,8 +203,130 @@ LanTaramaAdapter adapter;
     int i,finalI;
     String[] ip;
     String subnetIp;
+
+    public int[] subnethesabi(int subnet)
+    {
+       int ilk=subnet/8;
+       int sonkacbit=32-subnet;
+       int[] deger=new int[4];
+       for(int i=0;i<4;i++)
+       {
+           if(ilk==0)
+           {
+
+               if(sonkacbit%8==0)
+               {
+                   deger[i]=8;
+                   sonkacbit-=8;
+               }
+               else if (sonkacbit%8!=0) {
+                   deger[i]=sonkacbit%8;
+                   sonkacbit-=sonkacbit%8;
+               }
+
+           }
+           else if(ilk!=0)
+           {
+               deger[i]=0;
+               ilk--;
+           }
+       }
+        return deger;
+
+    }
+    public int[] Byte2Int(byte[] raw)
+    {
+        int[] deger=new int[raw.length];
+
+        for(int i=0;i<raw.length;i++)
+        {
+            deger[i]=raw[i]&0xFF;
+        }
+        return deger;
+    }
+    public void PingGonder2()
+    {
+items.clear();
+       int[] deger=Byte2Int(AgBilgisiFragment.subnetRaw);
+       int[] deger2=subnethesabi(AgBilgisiFragment.subnetUzunlugu);
+  //     agAdi.setText(deger[0]+"."+deger[1]+"."+deger[2]+"."+deger[3]+" / "+deger2[0]+"."+deger2[1]+"."+deger2[2]+"."+deger2[3]);
+agAdi.setText(AgBilgisiFragment.AgSsid.replace('"' ,' ').replace(" ",""));
+
+        runnable=new Runnable() {
+            @Override
+            public void run() {
+
+                int bir=deger[0];
+                int iki=deger[1];
+                int uc=deger[2];
+                int dort=deger[3];
+                final int[] prog = {0};
+                int toplam=(int)(Math.pow(2,deger2[0])*Math.pow(2,deger2[1])*Math.pow(2,deger2[2])*Math.pow(2,deger2[3]));
+
+                for(int j=deger[0];j<(deger[0]+(int)Math.pow(2,deger2[0]))&&durBaslabutoncheck;j++) {
+                    for (int k = deger[1]; k < (deger[1] + (int)Math.pow(2, deger2[1]))&&durBaslabutoncheck; k++) {
+                        for (int l = deger[2]; l < (deger[2] + (int)Math.pow(2, deger2[2]))&&durBaslabutoncheck; l++) {
+                            for (int m = deger[3]; m < (deger[3] + (int)Math.pow(2, deger2[3]))&&durBaslabutoncheck; m++) {
+                                // for(int i=0;i<=255&&durBaslabutoncheck;i++)
+
+                                int finalI1 = i;
+                                int finalJ = j;
+                                int finalK = k;
+                                int finalL = l;
+                                int finalM = m;
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // String subnetIp="192.168.1.";
+                                        try {
+                                            String subnetIp = finalJ + "." + finalK + "." + finalL + "." + finalM;
+                                            String ip;
+                                            synchronized (this) {
+
+                                                //  progressBar.setProgress(finalI1 *100/255);
+                                                progressBar.setProgress(prog[0] * 100 / (toplam - 1));
+                                                kalanSayisi.setText(toplam - 1 - prog[0] + " kaldı");
+                                                ip = subnetIp;
+                                                suankiIp.setText(ip);
+                                                if (pingKomutu(ip)&&finalJ!=0&&finalJ!=255&&finalK!=0&&finalK!=255&&finalL!=0&&finalL!=255&&finalM!=0&&finalM!=255) {
+                                                    items.add(new LanTaramaItems("", "", ip, ""));
+
+                                                    recyclerView.setAdapter(adapter);
+                                                }
+                                                if(finalI==255)
+                                                {
+                                                    suankiIp.setVisibility(View.GONE);
+                                                    kalanSayisi.setVisibility(View.GONE);
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                }
+                                                prog[0]++;
+                                            }
+                                        }
+                                        catch(Exception e)
+                                            {
+                              suankiIp.setText("Bağlı olduğunuz ağın alt ağı bulunmamaktadır.");
+                                            }
+
+                                    }
+                                });
+                                try {
+                                    Thread.sleep(200);
+                                } catch (Exception e) {
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        thread=new Thread(runnable);
+        thread.start();
+    }
 public  void pingGonder()
 {
+
+    items.clear();
     agAdi.setText(AgBilgisiFragment.AgSsid);
     //items.clear();
     //adapter=new VeriKullanimiAdapter(items);
@@ -257,7 +383,7 @@ public  void pingGonder()
         public void run() {
             String subnetIp="192.168.1.";
             final String[] ip = new String[1];
-            for(int i=0;i<=255;i++) {
+            for(int i=0;i<=255&&durBaslabutoncheck;i++) {
 if(Thread.currentThread().isInterrupted())
     break;
                 int finalI = i;

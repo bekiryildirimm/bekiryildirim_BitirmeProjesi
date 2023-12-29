@@ -48,13 +48,14 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class AraclarFragment extends Fragment {
-    EditText sorguIpEdit, baslangicPortEditText, bitisPortEditText;
-    RadioButton pingRadiobtn, tracerouteRadiobtn, portScanRadiobtn, yayginRadioBtn, hepsiRadioBtn;
-    ConstraintLayout udpProbeClyt, ipv6TercihClyt, portTaramaHeaderClyt;
-    LinearLayout portlarLlyt, portlarikinciLlyt;
-    TextView suAnkiPortTv, kalanPortSayisiTv, portTaramaIlerlemeTv;
+    EditText sorguIpEdit; //baslangicPortEditText, bitisPortEditText;
+    RadioButton pingRadiobtn, tracerouteRadiobtn; // portScanRadiobtn, yayginRadioBtn, hepsiRadioBtn;
+    //-->   ConstraintLayout udpProbeClyt,  ipv6TercihClyt, portTaramaHeaderClyt;
+  //  LinearLayout portlarLlyt, portlarikinciLlyt;
+    LinearLayout araclarSorguLlyt;
+    TextView suAnkiPortTv, /*kalanPortSayisiTv,*/ portTaramaIlerlemeTv,sorguTitle;
     ProgressBar portTaramaProgressBar;
-    SwitchCompat ipv6TercihSwitch, udpProbeSwitch;
+    //-->  SwitchCompat ipv6TercihSwitch, udpProbeSwitch;
     MenuItem menuItem;
     RecyclerView recyclerView;
     PingAdapter adapter;
@@ -62,7 +63,9 @@ public class AraclarFragment extends Fragment {
     Thread thread;
     Runnable runnable;
     Handler handler = new Handler();
-    private float elapsedTime;
+   // private float elapsedTime;
+
+    private String elapsedTime;
     private boolean durBaslabutoncheck = false;
     int[] iconlar = {R.drawable.circle_grey, R.drawable.circle_green};
 
@@ -159,28 +162,30 @@ public class AraclarFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_araclar, container, false);
         View view = inflater.inflate(R.layout.fragment_araclar, container, false);
         sorguIpEdit = view.findViewById(R.id.sorguipEditText);
-        baslangicPortEditText = view.findViewById(R.id.baslangicPortEditText);
-        bitisPortEditText = view.findViewById(R.id.bitisPortEditText);
+        //--> baslangicPortEditText = view.findViewById(R.id.baslangicPortEditText);
+        //-->  bitisPortEditText = view.findViewById(R.id.bitisPortEditText);
         pingRadiobtn = view.findViewById(R.id.pingRadiobtn);
         tracerouteRadiobtn = view.findViewById(R.id.tracerouteRadiobtn);
-        portScanRadiobtn = view.findViewById(R.id.portScanRadiobtn);
-        yayginRadioBtn = view.findViewById(R.id.yayginRadioBtn);
-        hepsiRadioBtn = view.findViewById(R.id.hepsiRadioBtn);
-        udpProbeClyt = view.findViewById(R.id.udpProbeClyt);
-        ipv6TercihClyt = view.findViewById(R.id.ipv6TercihClyt);
-        portlarLlyt = view.findViewById(R.id.portlarLlyt);
-        portlarikinciLlyt = view.findViewById(R.id.portlarikinciLlyt);
-        suAnkiPortTv = view.findViewById(R.id.suAnkiPortTv);
-        kalanPortSayisiTv = view.findViewById(R.id.kalanPortSayisiTv);
+        sorguTitle=view.findViewById(R.id.sorguTitle);
+        //-->  portScanRadiobtn = view.findViewById(R.id.portScanRadiobtn);
+        //-->  yayginRadioBtn = view.findViewById(R.id.yayginRadioBtn);
+        //-->   hepsiRadioBtn = view.findViewById(R.id.hepsiRadioBtn);
+        //-->udpProbeClyt = view.findViewById(R.id.udpProbeClyt);
+        //--> ipv6TercihClyt = view.findViewById(R.id.ipv6TercihClyt);
+        //-->  portlarLlyt = view.findViewById(R.id.portlarLlyt);
+        //-->portlarikinciLlyt = view.findViewById(R.id.portlarikinciLlyt);
+        //--> suAnkiPortTv = view.findViewById(R.id.suAnkiPortTv);
+        //--> kalanPortSayisiTv = view.findViewById(R.id.kalanPortSayisiTv);
         portTaramaIlerlemeTv = view.findViewById(R.id.portTaramaIlerlemeTv);
-        portTaramaHeaderClyt = view.findViewById(R.id.portTaramaHeaderClyt);
-        portTaramaProgressBar = view.findViewById(R.id.portTaramaProgressBar);
-        ipv6TercihSwitch = view.findViewById(R.id.ipv6TercihSwitch);
-        udpProbeSwitch = view.findViewById(R.id.udpProbeSwitch);
+        //-->portTaramaHeaderClyt = view.findViewById(R.id.portTaramaHeaderClyt);
+        //-->   portTaramaProgressBar = view.findViewById(R.id.portTaramaProgressBar);
+        //-->  ipv6TercihSwitch = view.findViewById(R.id.ipv6TercihSwitch);
+     //-->   udpProbeSwitch = view.findViewById(R.id.udpProbeSwitch);
         // Editable editable =sorguIpEdit.getText();
         //   portTaramaIlerlemeTv.setText(sorguIpEdit.getText().length()+" e");
-
+        araclarSorguLlyt=view.findViewById(R.id.araclarSorguLlyt);
         //pingRadiobtn.setActivated(true);
+        portTaramaIlerlemeTv.setVisibility(View.GONE);
         sorguIpEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -209,51 +214,51 @@ public class AraclarFragment extends Fragment {
         });
 
         pingRadiobtn.setChecked(true);
-        yayginRadioBtn.setChecked(true);
-        portlarLlyt.setVisibility(View.GONE);
-        udpProbeClyt.setVisibility(View.GONE);
+        //--->yayginRadioBtn.setChecked(true);
+        //--->portlarLlyt.setVisibility(View.GONE);
+        //-->udpProbeClyt.setVisibility(View.GONE);
         pingRadiobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ipv6TercihClyt.setVisibility(View.VISIBLE);
-                portlarLlyt.setVisibility(View.GONE);
-                udpProbeClyt.setVisibility(View.GONE);
+                //-->   ipv6TercihClyt.setVisibility(View.VISIBLE);
+                //-->      portlarLlyt.setVisibility(View.GONE);
+                //-->      udpProbeClyt.setVisibility(View.GONE);
             }
         });
         tracerouteRadiobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ipv6TercihClyt.setVisibility(View.VISIBLE);
-                portlarLlyt.setVisibility(View.GONE);
-                udpProbeClyt.setVisibility(View.VISIBLE);
+                //-->   ipv6TercihClyt.setVisibility(View.VISIBLE);
+                //-->    portlarLlyt.setVisibility(View.GONE);
+                //-->     udpProbeClyt.setVisibility(View.VISIBLE);
 
             }
         });
-        portScanRadiobtn.setOnClickListener(new View.OnClickListener() {
+       /* portScanRadiobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ipv6TercihClyt.setVisibility(View.VISIBLE);
-                portlarLlyt.setVisibility(View.VISIBLE);
-                udpProbeClyt.setVisibility(View.GONE);
-                yayginRadioBtn.setChecked(true);
-                portlarikinciLlyt.setVisibility(View.GONE);
+                //-->  ipv6TercihClyt.setVisibility(View.VISIBLE);
+                //-->   portlarLlyt.setVisibility(View.VISIBLE);
+                //-->    udpProbeClyt.setVisibility(View.GONE);
+                //-->     yayginRadioBtn.setChecked(true);
+                //-->    portlarikinciLlyt.setVisibility(View.GONE);
             }
-        });
+        });*/
 
-        hepsiRadioBtn.setOnClickListener(new View.OnClickListener() {
+     /*--->   hepsiRadioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ipv6TercihClyt.setVisibility(View.VISIBLE);
-                portlarikinciLlyt.setVisibility(View.VISIBLE);
+                //-->  ipv6TercihClyt.setVisibility(View.VISIBLE);
+                //-->   portlarikinciLlyt.setVisibility(View.VISIBLE);
             }
         });
         yayginRadioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ipv6TercihClyt.setVisibility(View.VISIBLE);
-                portlarikinciLlyt.setVisibility(View.GONE);
+                //-->    ipv6TercihClyt.setVisibility(View.VISIBLE);
+                //-->      portlarikinciLlyt.setVisibility(View.GONE);
             }
-        });
+        });*/
         return view;
 
 
@@ -280,6 +285,8 @@ public class AraclarFragment extends Fragment {
             dur.setSpan(new ForegroundColorSpan(Color.RED), 0, dur.length(), 0);
             item.setTitle(dur);
             durBaslabutoncheck = true;
+            araclarSorguLlyt.setVisibility(View.GONE);
+            sorguTitle.setVisibility(View.GONE);
             if (pingRadiobtn.isChecked()) {
 
                 PingGonder(sorguIpEdit.getText().toString(), true);
@@ -312,9 +319,13 @@ else if(tracerouteRadiobtn.isChecked()&&ipv6TercihSwitch.isChecked()&&!udpProbeS
             dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
             item.setTitle(dur);
             durBaslabutoncheck = false;
-            kalanPortSayisiTv.setText(thread.isAlive() + " " + thread.isInterrupted());
-            thread.interrupt();
-            portTaramaIlerlemeTv.setText(thread.isAlive() + " " + thread.isInterrupted());
+            araclarSorguLlyt.setVisibility(View.VISIBLE);
+            sorguTitle.setVisibility(View.VISIBLE);
+
+
+            //kalanPortSayisiTv.setText(thread.isAlive() + " " + thread.isInterrupted());
+          //  thread.interrupt();
+        //    portTaramaIlerlemeTv.setText(thread.isAlive() + " " + thread.isInterrupted());
 
             return true;
         } else if (durBaslabutoncheck && sorguIpEdit.getText().length() == 0) {
@@ -322,9 +333,11 @@ else if(tracerouteRadiobtn.isChecked()&&ipv6TercihSwitch.isChecked()&&!udpProbeS
             dur.setSpan(new ForegroundColorSpan(Color.GRAY), 0, dur.length(), 0);
             item.setTitle(dur);
             durBaslabutoncheck = false;
+            araclarSorguLlyt.setVisibility(View.VISIBLE);
+            sorguTitle.setVisibility(View.VISIBLE);
             //kalanPortSayisiTv.setText(thread.isAlive() + " " + thread.isInterrupted());
            // thread.interrupt();
-            portTaramaIlerlemeTv.setText(thread.isAlive() + " " + thread.isInterrupted());
+          //  portTaramaIlerlemeTv.setText(thread.isAlive() + " " + thread.isInterrupted());
             return true;
         } else if (!durBaslabutoncheck && sorguIpEdit.getText().length() == 0) {
             SpannableString dur = new SpannableString("Başla");
@@ -361,89 +374,25 @@ else if(tracerouteRadiobtn.isChecked()&&ipv6TercihSwitch.isChecked()&&!udpProbeS
         return false;
     }
 
-    private String parseTimeFromPing(String ping) {
-        String time = "";
-        if (ping.contains("time=")) {
-            int index = ping.indexOf("time=");
 
-            time = ping.substring(index + 5);
-            index = time.indexOf(" ");
-            time = time.substring(0, index);
-        }
 
-        return time;
-    }
 
-    private String parseIpToPingFromPing(String ping) {
-        String ip = "";
-        if (ping.contains("PING")) {
-            // Get ip when ping succeeded
-            int indexOpen = ping.indexOf("(");
-            int indexClose = ping.indexOf(")");
 
-            ip = ping.substring(indexOpen + 1, indexClose);
-        }
 
-        return ip;
-    }
 
-    private String parseIpFromPing(String ping) {
-        String ip = "";
-        if (ping.contains(FROM_PING)) {
-            // Get ip when ttl exceeded
-            int index = ping.indexOf(FROM_PING);
-
-            ip = ping.substring(index + 5);
-            if (ip.contains(PARENTHESE_OPEN_PING)) {
-                // Get ip when in parenthese
-                int indexOpen = ip.indexOf(PARENTHESE_OPEN_PING);
-                int indexClose = ip.indexOf(PARENTHESE_CLOSE_PING);
-
-                ip = ip.substring(indexOpen + 1, indexClose);
-            } else {
-                // Get ip when after from
-                ip = ip.substring(0, ip.indexOf("\n"));
-                if (ip.contains(":")) {
-                    index = ip.indexOf(":");
-                } else {
-                    index = ip.indexOf(" ");
-                }
-
-                ip = ip.substring(0, index);
-            }
-        } else {
-            // Get ip when ping succeeded
-            int indexOpen = ping.indexOf(PARENTHESE_OPEN_PING);
-            int indexClose = ping.indexOf(PARENTHESE_CLOSE_PING);
-
-            ip = ping.substring(indexOpen + 1, indexClose);
-        }
-
-        return ip;
-    }
-
-    private static final String PING = "PING";
-    private static final String FROM_PING = "From";
-    private static final String SMALL_FROM_PING = "from";
-    private static final String PARENTHESE_OPEN_PING = "(";
-    private static final String PARENTHESE_CLOSE_PING = ")";
-    private static final String TIME_PING = "time=";
-    private static final String EXCEED_PING = "exceed";
-    private static final String UNREACHABLE_PING = "100%";
-
-    private String tracerouteKomutu(String ipadresi, int ttl) {
+   /* private String tracerouteKomutu(String ipadresi, int ttl) {
         System.out.println("executeCommand");
         Runtime runtime = Runtime.getRuntime();
         String s;
         String res = "";
         long startTime; // = System.nanoTime();
-        elapsedTime = 0;
+        elapsedTime = "";
         try {
 
             Process process = runtime.exec("/system/bin/ping -s 128 -c 1 -t " + ttl + " " + ipadresi);
             startTime = System.nanoTime();
             process.waitFor();
-            elapsedTime = (System.nanoTime() - startTime) / 1000000.0f;
+          //  elapsedTime = (System.nanoTime() - startTime) / 1000000.0f+" ms";
             String mExitValue = "";
             // if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             //  mExitValue = process.waitFor(200, TimeUnit.MILLISECONDS);
@@ -472,7 +421,7 @@ else if(tracerouteRadiobtn.isChecked()&&ipv6TercihSwitch.isChecked()&&!udpProbeS
             System.out.println(" Exception:" + e);
         }
         return "error";
-    }
+    }*/
 
 public String PingHostnameStr(String str)
 {
@@ -557,6 +506,19 @@ index1+=4;
             }
         }*/
     }
+    public String PingZamanStr(String str)
+    {
+        try {
+
+
+            return str.substring(str.indexOf("mdev =") + 6, str.indexOf("/", str.indexOf("mdev =")));
+
+        }
+        catch (Exception e)
+        {
+            return "";
+        }
+    }
     private boolean PingProcess(String ipadresi,int sirano,String ttl)
     {
         Runtime runtime=Runtime.getRuntime();
@@ -564,13 +526,35 @@ index1+=4;
         String res = "";
         int iconIndex;
         boolean cikisbool=false;
+        long startTime; // = System.nanoTime();
+    //    elapsedTime = 0;
+        elapsedTime="";
         try {
-            Process process=runtime.exec("/system/bin/ping  -s 128 -c 1 -w 1 -W 1 "+ttl +" "+ ipadresi);
-          int cikisDegeri= process.waitFor();
+            startTime = System.nanoTime();
+           Process process=runtime.exec("/system/bin/ping  -s 128 -c 1 -W 1 "+ttl +" "+ ipadresi);
+           // Process process=runtime.exec("/system/bin/ping6 -s 128 -W 1 -c 1 -I wlan0 "+ ipadresi);
+
+        //    elapsedTime = Float.toString((System.nanoTime() - startTime) / 1000000.0f);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             while ((s = bufferedReader.readLine()) != null) {
                 res += s + "\n";
+              //  if(PingZamanStr(res)=="")
+                if(s.contains("From")||s.contains("from"))
+                {
+                    //   elapsedTime = ((System.nanoTime() - startTime) / 1000000.0f+" ms").substring(0,elapsedTime.length()-4);
+                    elapsedTime = Float.toString((System.nanoTime() - startTime) / 1000000.0f);
+                    elapsedTime=elapsedTime.substring(0,elapsedTime.indexOf(".")+2)+" ms";
+                   // elapsedTime=elapsedTime.substring(0,elapsedTime.length()-4)+" ms";
+                }
+                else if(PingZamanStr(res)!="") {
+                    elapsedTime = PingZamanStr(res);
+                    elapsedTime=elapsedTime.substring(0,elapsedTime.length()-2)+" ms";
+
+                }
+
+
             }
+            int cikisDegeri= process.waitFor();
 
 
             if(cikisDegeri==0) {
@@ -587,7 +571,13 @@ index1+=4;
            //items.add(new PingItems(iconlar[iconIndex],sirano,ipadresi,cikisDegeri+" ",denemepingstr(res)));
             //  items.add(new PingItems(iconlar[iconIndex],sirano,ipadresi,cikisDegeri+" ",res));
           //  items.add(new PingItems(iconlar[iconIndex],sirano,pingIpAdresiStr(res),cikisDegeri+" ",PingHostnameStr(res)));
-            items.add(new PingItems(iconlar[iconIndex],sirano,pingIpAdresiStr(res),cikisDegeri+" ",res));
+
+            if(durBaslabutoncheck) {
+                items.add(new PingItems(iconlar[iconIndex], sirano, pingIpAdresiStr(res), elapsedTime, PingHostnameStr(res)));
+
+             //     items.add(new PingItems(iconlar[iconIndex],sirano,pingIpAdresiStr(res),elapsedTime,res));
+            }
+
          return cikisbool;
         }
         catch (InterruptedException intr)
@@ -610,19 +600,19 @@ return false;
 
 
 
-    private String pingKomutu2(String ipadresi) {
+   /* private String pingKomutu2(String ipadresi) {
 
-        Runtime runtime = Runtime.getRuntime();
+        Runtime runtime  = Runtime.getRuntime();
         String s;
         String res = "";
         long startTime; // = System.nanoTime();
-        elapsedTime = 0;
+        //elapsedTime = 0;
         try {
 
             Process process = runtime.exec("/system/bin/ping -s 128 -c 1 " + ipadresi);
             startTime = System.nanoTime();
             process.waitFor();
-            elapsedTime = (System.nanoTime() - startTime) / 1000000.0f;
+      //      elapsedTime = (System.nanoTime() - startTime) / 1000000.0f;
             String mExitValue = "";
             // if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             //  mExitValue = process.waitFor(200, TimeUnit.MILLISECONDS);
@@ -651,7 +641,7 @@ return false;
             System.out.println(" Exception:" + e);
         }
         return "error";
-    }
+    }*/
 //boolean pingcheck=true;
     public void PingGonder(String ipAdresi, boolean hangisi) {
 
@@ -660,6 +650,7 @@ return false;
             @Override
             public void run() {
                 final boolean[] pingcheck = {true};
+
                 for (int i = 1; durBaslabutoncheck&& pingcheck[0]; i++) {
                     int finalI = i;
 
@@ -667,6 +658,9 @@ return false;
                         @Override
                         public void run() {
                             synchronized (this) {
+                                portTaramaIlerlemeTv.setVisibility(View.VISIBLE);
+                                portTaramaIlerlemeTv.setText(ipAdresi+" ("+finalI+")");
+
                                 if (hangisi) {
                                     // items.add(new PingItems(iconlar[1], finalI, ipAdresi, finalI + " MSsd", pingKomutu2(ipAdresi)));
                                 PingProcess(ipAdresi,finalI,"");
@@ -683,10 +677,13 @@ return false;
                                     if(traceCheck){
 
                                         pingcheck[0] =false;
-                                        kalanPortSayisiTv.setText("pingcheck=false");
+                                        durBaslabutoncheck=false;
+                                        //--->kalanPortSayisiTv.setText("pingcheck=false");
                                         SpannableString dur = new SpannableString("Başla");
                                         dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
                                         menuItem.setTitle(dur);
+                                        araclarSorguLlyt.setVisibility(View.VISIBLE);
+                                        sorguTitle.setVisibility(View.VISIBLE);
                                     }
 
                                         items.sort(new PingComparator());
@@ -702,7 +699,7 @@ return false;
                     try {
 
 
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (Exception e) {
 
                     }
