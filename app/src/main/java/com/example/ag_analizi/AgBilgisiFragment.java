@@ -7,6 +7,7 @@ import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.net.RouteInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -17,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.telephony.CellIdentity;
 import android.telephony.CellInfo;
 import android.telephony.CellSignalStrength;
@@ -30,17 +33,28 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Stream;
+import java.net.URLConnection;
+
+import kotlinx.coroutines.android.HandlerDispatcher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,16 +67,18 @@ public static int subnetUzunlugu;
 public static byte[] subnetRaw;
 public  static String subnetAdresi;
     WifiManager wifiManager;
+    NetworkRequest networkRequest;
     Stream<String> arpre;
     WifiInfo wifiInfo;
     TelephonyManager telephonyManager;
-    ConnectivityManager connectivityManager;
+    ConnectivityManager connectivityManager,connectivityManager2;
     NetworkCapabilities networkCapabilities;
+    ConnectivityManager.NetworkCallback networkCallback;
     LinkProperties linkProperties;
     LinkProperties lp;
     List<RouteInfo> routes;
     Network[] networks;
-    TextView baglantiTuruTv, hariciIpTv, hariciIpv6, ipadresTv, subnetMaskTv, gatewayIpTv, dnsServerIpTv, ipv6AdresiTv, gatewayIpv6Tv, dnsServerIpv6Tv, etkinTv, baglantiDurumuTv, dhcpKiraTv, ssidTv, bssidTv, saticiTv, kanalTv, standartTv, hizTv, maxHizTv, wifiSignalTv, veriDurumTv, veriAktiviteTv, veriDolasimTv, simDurumTv, simOperatorTv, simMccTv, agTipiTv, telefonTipiTv, mobilSinyalTv;
+    TextView wifiBaglantiTitletv,baglantiTuruTv, hariciIpTv, hariciIpv6, ipadresTv, subnetMaskTv, gatewayIpTv, dnsServerIpTv, ipv6AdresiTv, gatewayIpv6Tv, dnsServerIpv6Tv, etkinTv, baglantiDurumuTv, dhcpKiraTv, ssidTv, bssidTv, saticiTv, kanalTv, standartTv, hizTv, maxHizTv, wifiSignalTv, veriDurumTv, veriAktiviteTv, veriDolasimTv, simDurumTv, simOperatorTv, simMccTv, agTipiTv, telefonTipiTv, mobilSinyalTv;
     ImageView etkinIcon, baglantiTuruIcon, veriDurumIcon, veriAktiviteIcon, veriDolasimIcon, simDurumIcon;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -113,6 +129,44 @@ public  static String subnetAdresi;
 
         networks = connectivityManager.getAllNetworks();
 
+
+       /* try {
+            networkRequest = new NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    .build();
+
+            networkCallback = new ConnectivityManager.NetworkCallback(ConnectivityManager.NetworkCallback.FLAG_INCLUDE_LOCATION_INFO) {
+                @Override
+                public void onAvailable(@NonNull Network network) {
+                    super.onAvailable(network);
+                }
+
+                @Override
+                public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties linkProperties) {
+                    super.onLinkPropertiesChanged(network, linkProperties);
+                    etkinTv.setText("link properties changed");
+                }
+
+                @Override
+                public void onLost(@NonNull Network network) {
+                    super.onLost(network);
+                    etkinTv.setText("onlost");
+                }
+            };
+            connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
+        }
+        catch (Exception e)
+        {
+            etkinTv.setText(e.getMessage()+"  hatanetwork");
+        }*/
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        connectivityManager2.unregisterNetworkCallback(networkCallback);
     }
 
     @Override
@@ -166,8 +220,12 @@ ipv6AdresiTv.setText(ipadresleri[1]);*/
         veriAktiviteIcon = view.findViewById(R.id.veriAktiviteIcon);
         veriDolasimIcon = view.findViewById(R.id.veriDolasimIcon);
         simDurumIcon = view.findViewById(R.id.simDurumIcon);
-        baglantiTuruTv.setText("merhabaaaaa");
-        try {
+     //   baglantiTuruTv.setText("merhabaaaaa");
+        wifiBaglantiTitletv=view.findViewById(R.id.wifiBaglantiTitletv);
+
+        BaglantiKontrol();
+
+        /*   try {
             String[] ipadresleri = formatCihazIpAddresses(linkProperties);
             ipadresTv.setText(ipadresleri[1]);
             ipv6AdresiTv.setText(ipadresleri[0]);
@@ -238,7 +296,7 @@ agTipiTv.setText("Bilinmiyor");
         simDurumTv.setText(simDurumu[telephonyManager.getSimState()]);
       simDurumIcon.setImageResource(simdurumuiconu[telephonyManager.getSimState()]);
         telefonTipiTv.setText(TelefonTipi[telephonyManager.getPhoneType()]);
-        veriDurumIcon.setImageResource(veridurumuiconu[telephonyManager.getDataState()]);
+        veriDurumIcon.setImageResource(veridurumuiconu[telephonyManager.getDataState()]);*/
         // etkinTv.setText(executeCommand()+" ");
         //executeCommand();
       /*  InetAddress inet= null;
@@ -265,21 +323,355 @@ agTipiTv.setText("Bilinmiyor");
                 }
             }
         }*/
-        String rawadres="";
+        /*String rawadres="";
         for(byte raw:subnetRaw)
         {
            // rawadres+=raw+"\n";
 
         //    rawadres+=Integer.toBinaryString(raw&0xFF)+"\n";
               rawadres+=(raw&0xFF)+"\n";
-        }
+        }*/
 
 
-        etkinTv.setText(rawadres);
+      //  etkinTv.setText(rawadres);
 
 //etkinTv.setText(srer);
+
+
+        try {
+            connectivityManager2=(ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            networkRequest = new NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    .build();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+                networkCallback = new ConnectivityManager.NetworkCallback(ConnectivityManager.NetworkCallback.FLAG_INCLUDE_LOCATION_INFO);/* {
+                    @Override
+                    public void onAvailable(@NonNull Network network) {
+                        super.onAvailable(network);
+                    }
+
+                    @Override
+                    public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties linkProperties) {
+                        super.onLinkPropertiesChanged(network, linkProperties);
+                //        etkinTv.setText("link properties changed");
+                    }
+
+                    @Override
+                    public void onLost(@NonNull Network network) {
+                        super.onLost(network);
+              //          etkinTv.setText("onlost");
+                    }
+                };*/
+            }
+            else
+            {
+                networkCallback=new ConnectivityManager.NetworkCallback(){
+                    @Override
+                    public void onLinkPropertiesChanged(@NonNull Network network, @NonNull LinkProperties linkProperties) {
+                        super.onLinkPropertiesChanged(network, linkProperties);
+                 //       etkinTv.setText("onlink");
+                        try{
+                            BaglantiKontrol();}
+                        catch (Exception e)
+                        {
+                            etkinTv.setText("1"+e.getMessage()+" gata");
+                        }
+
+                    }
+
+                    @Override
+                    public void onAvailable(@NonNull Network network) {
+                        super.onAvailable(network);
+                       // etkinTv.setText("onavailable");
+                        try{
+                            BaglantiKontrol();}
+                        catch (Exception e)
+                        {
+                            etkinTv.setText("2"+e.getMessage()+" gata");
+                        }
+                    }
+
+                    @Override
+                    public void onLost(@NonNull Network network) {
+                        super.onLost(network);
+                     //   etkinTv.setText("onlost");
+                        try{
+                        BaglantiKontrol();}
+                        catch (Exception e)
+                        {
+                            etkinTv.setText("3"+e.getMessage()+" gata");
+                        }
+                    }
+
+                    @Override
+                    public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+                        super.onCapabilitiesChanged(network, networkCapabilities);
+                        try{
+                            BaglantiKontrol();}
+                        catch (Exception e)
+                        {
+                            etkinTv.setText("4"+e.getMessage()+" gata");
+                        }
+                     //   etkinTv.setText("capabilities");
+                    }
+                };
+
+            }
+           // connectivityManager2.registerNetworkCallback(networkRequest, networkCallback);
+            connectivityManager2.registerDefaultNetworkCallback(networkCallback);
+        }
+
+        catch (Exception e)
+        {
+           etkinTv.setText("5"+e.getMessage()+"  hatanetwork");
+        }
+     //   hariciIpTv.setText(HariciIpAsync()+"asda");
         return view;
     }
+    public void BaglantiKontrol()
+    {
+
+        try {
+
+
+            wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
+            wifiInfo = wifiManager.getConnectionInfo();
+            connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+            linkProperties = connectivityManager.getLinkProperties(connectivityManager.getActiveNetwork());
+            telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+
+            networks = connectivityManager.getAllNetworks();
+        }
+        catch (Exception e)
+        {
+            etkinTv.setText("6"+e.getMessage()+" ne oldu bakalım");
+
+        }
+try {
+
+    if (linkProperties.getInterfaceName().contains("ccmni")) {
+        baglantiTuruTv.setText("Mobil");
+        baglantiTuruIcon.setImageResource(R.drawable.circle_green);
+        wifiBaglantiTitletv.setText("MOBİL BAĞLANTI");
+    } else if (linkProperties.getInterfaceName().contains("wlan")) {
+        baglantiTuruTv.setText("Wi-Fi");
+        baglantiTuruIcon.setImageResource(R.drawable.circle_green);
+        wifiBaglantiTitletv.setText("WİFİ BAĞLANTISI");
+    }
+}
+catch (Exception e)
+{
+    baglantiTuruTv.setText("Hiçbiri");
+    baglantiTuruIcon.setImageResource(R.drawable.circle_red);
+}
+        try {
+            String[] ipadresleri = formatCihazIpAddresses(linkProperties);
+            ipadresTv.setText(ipadresleri[1]);
+            ipv6AdresiTv.setText(ipadresleri[0]);
+            dnsServerIpTv.setText(ipadresleri[2]);
+            gatewayIpTv.setText(ipadresleri[3]);
+            subnetMaskTv.setText(ipadresleri[4]);
+        } catch (Exception e) {
+            ipadresTv.setText("N/A");
+            ipv6AdresiTv.setText("N/A");
+            dnsServerIpTv.setText("N/A");
+            gatewayIpTv.setText("N/A");
+            subnetMaskTv.setText("N/A");
+        }
+
+        try {
+            dhcpKiraTv.setText(wifiManager.getDhcpInfo().leaseDuration + "saniye");
+        } catch (Exception a) {
+
+        }
+        ssidTv.setText(wifiInfo.getSSID());
+        AgSsid=wifiInfo.getSSID();
+        bssidTv.setText(wifiInfo.getBSSID());
+        kanalTv.setText(getChannelFromFrequency(wifiInfo.getFrequency()) + " (" + wifiInfo.getFrequency() + "MHz)");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            standartTv.setText(standartlar[wifiInfo.getWifiStandard()]);
+        } else
+            standartTv.setText("N/A");
+        hizTv.setText(wifiInfo.getLinkSpeed() + " Mbps");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            maxHizTv.setText(wifiInfo.getMaxSupportedRxLinkSpeedMbps() + " / " + wifiInfo.getMaxSupportedTxLinkSpeedMbps() + " Mbps");
+        }
+        wifiSignalTv.setText(wifiInfo.getRssi() + " dBm");
+        //ipadresTv.setText(ipadresleri[0]);
+        //ipv6AdresiTv.setText(ipadresleri[1]);
+
+        // telephonyManager.cell
+
+        //simOperatorTv.setText(mobilBilgi(telephonyManager));
+        simOperatorTv.setText(telephonyManager.getSimOperatorName());
+        simMccTv.setText(telephonyManager.getSimOperator()+" ("+telephonyManager.getSimCountryIso()+")");
+        mobilSinyalTv.setText(mobilSinyalGucu(telephonyManager));
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+
+
+                if(telephonyManager.isNetworkRoaming()){
+                    veriDolasimTv.setText("Dolaşım Var");
+                    veriDolasimIcon.setImageResource(R.drawable.circle_green);
+
+                }
+                else
+                {
+                    veriDolasimTv.setText("Dolaşım Yok");
+                    veriDolasimIcon.setImageResource(R.drawable.circle_red);
+                }
+            }
+            else
+            {
+                veriDolasimTv.setText("Bilinmiyor");
+                veriDolasimIcon.setImageResource(R.drawable.circle_red);
+            }
+            agTipiTv.setText(agTipi[telephonyManager.getDataNetworkType()]);
+        }
+        catch (SecurityException ser)
+        {
+            agTipiTv.setText("Bilinmiyor");
+        }
+        veriDurumTv.setText(veriDurumu[telephonyManager.getDataState()]);
+        veriAktiviteTv.setText(veriAktivitesi[telephonyManager.getDataActivity()]);
+        veriAktiviteIcon.setImageResource(veriaktiviteiconu[telephonyManager.getDataActivity()]);
+        simDurumTv.setText(simDurumu[telephonyManager.getSimState()]);
+        simDurumIcon.setImageResource(simdurumuiconu[telephonyManager.getSimState()]);
+        telefonTipiTv.setText(TelefonTipi[telephonyManager.getPhoneType()]);
+        veriDurumIcon.setImageResource(veridurumuiconu[telephonyManager.getDataState()]);
+    }
+    public String HariciIpAdresi()
+    {
+        URL url=null;
+        try {
+            url=new URL("https://ipecho.net/plain");
+        }
+        catch (MalformedURLException e) {
+return "malform";
+        }
+        try {
+
+
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+     /*  try {
+           InputStream inputStream=new BufferedInputStream(httpURLConnection.getInputStream());
+          httpURLConnection.get
+           // readStram(inputStream);
+       }*/
+
+
+        if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            //    InputStream inputStream=new BufferedInputStream((httpURLConnection.getInputStream()));
+            return httpURLConnection.getResponseMessage()+" artı";
+        }
+        else{
+            return "hata olustu";}
+    }
+        catch (IOException io)
+        {
+            return io.getMessage();
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+public String HariciIpAsync()
+{
+    //Executor
+    final String[] donus = new String[1];
+    donus[0]="nl degil";
+    ExecutorService executorService= Executors.newSingleThreadExecutor();
+
+    Handler handler2=new Handler(Looper.getMainLooper());
+  //  executorService.execute(new Runnable() {
+
+
+    Runnable runnable2=new Runnable() {
+
+
+        @Override
+        public void run() {
+            handler2.post(new Runnable() {
+                @Override
+                public void run() {
+                    donus[0] = "210";
+                    URL url = null;
+                    try {
+                        url = new URL("https://ipecho.net/plain");
+                    } catch (MalformedURLException e) {
+                        //    return "malform";
+                        donus[0] = "malform";
+                    }
+                    try {
+
+
+                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+      try {
+
+          httpURLConnection.connect();
+          // InputStream inputStream=new BufferedInputStream(httpURLConnection.getInputStream());
+     //     httpURLConnection.get
+           // readStram(inputStream);
+          donus[0]="123";
+       }
+      catch (Exception es)
+      {
+          donus[0]=es.getMessage()+" es";
+      }
+                        //donus[0]="1 ";
+                      //  donus[0] = httpURLConnection.getResponseMessage() + " response";
+
+
+                    /*    if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                            donus[0]="1 ";
+
+                            //    InputStream inputStream=new BufferedInputStream((httpURLConnection.getInputStream()));
+                            //   return httpURLConnection.getResponseMessage()+" artı";
+                         //   donus[0] = httpURLConnection.getResponseMessage() + " response";
+                        }
+                        else {
+                            // return "hata olustu";
+                            donus[0] = "hata olustu";
+                        }*/
+                    } catch (IOException io) {
+                        //return io.getMessage();
+                        donus[0] = io.getMessage() + " io";
+                    } catch (Exception e) {
+                        //   return e.getMessage();
+                        donus[0]+= e.getMessage() + " e";
+                    }
+
+                    try{
+                        Thread.sleep(1000);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    hariciIpv6.setText(donus[0]);
+                }
+            });
+        }
+    };
+    executorService.execute(runnable2);
+    Thread thread2=new Thread(runnable2);
+    thread2.start();
+  //  });
+//hariciIpv6.setText(donus[0]);
+    return donus[0];
+}
+
+/*public void htppreq()
+{
+  HttpRe
+}*/
+
     public String getMacAddressForIp(final String ipAddress) {
         try (BufferedReader br = new BufferedReader(new FileReader("/proc/net/arp"))) {
             String line;
@@ -428,16 +820,7 @@ int[] simdurumuiconu={R.drawable.circle_red,R.drawable.circle_red,R.drawable.cir
         }
         return addresses;
     }
-    private String getSubnetAddress(int address)
-    {
-        String ipString = String.format(
-                "%d.%d.%d",
-                (address & 0xff),
-                (address >> 8 & 0xff),
-                (address >> 16 & 0xff));
 
-        return ipString;
-    }
     private static String[] formatCihazIpAddresses(LinkProperties prop) {
         if (prop == null) return null;
        // Iterator<LinkAddress> iter = prop.getLinkAddresses().iterator();
