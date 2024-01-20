@@ -37,6 +37,7 @@ public class WifiTaramaAdapter extends RecyclerView.Adapter<WifiTaramaViewHolder
      holder.ssid.setText(items.get(position).getSsid());
      holder.sinyalGucu.setText(items.get(position).getSinyalGucu());
      holder.wps.setText(items.get(position).getWps());
+     holder.standart.setText(items.get(position).getStandart());
     }
 
     @Override

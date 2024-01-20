@@ -56,5 +56,9 @@ dependencies {
     implementation("me.grantland:autofittextview:0.2.1")
     implementation("info.hoang8f:android-segmented:1.0.6")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.android.volley:volley:1.2.1")
+    //implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    //implementation("org.apache.httpcomponents:httpclient:4.5")
    // implementation("com.android.support:appcompat-v7:25.3.1")
 }

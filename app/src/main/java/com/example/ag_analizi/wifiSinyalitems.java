@@ -8,6 +8,7 @@ public class wifiSinyalitems {
     String bssid;
     String sifreleme;
     String wps;
+    String standart;
 
     public wifiSinyalitems(String channel, String ssid, String sinyalGucu, String bssid, String sifreleme, String wps) {
         this.channel = channel;
@@ -16,6 +17,20 @@ public class wifiSinyalitems {
         this.bssid = bssid;
         this.sifreleme = sifreleme;
         this.wps = wps;
+    }
+
+    public wifiSinyalitems(String channel, String ssid, String sinyalGucu, String bssid, String sifreleme, String wps, String standart) {
+        this.channel = channel;
+        this.ssid = ssid;
+        this.sinyalGucu = sinyalGucu;
+        this.bssid = bssid;
+        this.sifreleme = sifreleme;
+        this.wps = wps;
+        this.standart = standart;
+    }
+
+    public String getStandart() {
+        return standart;
     }
 
     public String getChannel() {

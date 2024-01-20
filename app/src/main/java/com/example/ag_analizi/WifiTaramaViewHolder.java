@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class WifiTaramaViewHolder extends RecyclerView.ViewHolder {
- TextView channel, ssid,sinyalGucu,bssid,sifreleme,wps;
+ TextView channel, ssid,sinyalGucu,bssid,sifreleme,wps,standart;
     public WifiTaramaViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -17,5 +17,6 @@ public class WifiTaramaViewHolder extends RecyclerView.ViewHolder {
         bssid=itemView.findViewById(R.id.bssidView);
         sifreleme=itemView.findViewById(R.id.encryptionView);
         wps=itemView.findViewById(R.id.othersView);
+        standart=itemView.findViewById(R.id.vendorView);
     }
 }

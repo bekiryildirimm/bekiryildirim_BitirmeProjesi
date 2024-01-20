@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Message;
 import android.os.Handler;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.ActionProvider;
 import android.view.LayoutInflater;
@@ -37,8 +38,9 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class LanTaramaFragment extends Fragment {
-TextView suankiIp, kalanSayisi, agAdi;
+TextView suankiIp, kalanSayisi, agAdi,lantaramaTv;
 ProgressBar progressBar;
+    MenuItem menuItem;
 private boolean durBaslabutoncheck=false;
 Handler handler=new Handler(); /*{
     @Override
@@ -118,6 +120,13 @@ LanTaramaAdapter adapter;
                 kalanSayisi=view.findViewById(R.id.kalanSayisiTv);
         agAdi=view.findViewById(R.id.lanTaramaAgAdiTv);
         progressBar=view.findViewById(R.id.lanTaramaProgressBar);
+        lantaramaTv=view.findViewById(R.id.lantaramaTv);
+        SpannableString dur = new SpannableString("BAŞLA");
+
+        dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
+        lantaramaTv.setText(TextUtils.concat("Wi-Fi ağına bağlı cihazları görüntülemek için ",dur," butonuna basınız..."));
+
+
         return view;
 
     }
@@ -145,7 +154,7 @@ LanTaramaAdapter adapter;
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
       inflater.inflate(R.menu.dur_basla_menu,menu);
-        MenuItem menuItem=menu.getItem(0);
+      menuItem=menu.getItem(0);
         SpannableString dur = new SpannableString("Başla");
         dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
         menuItem.setTitle(dur);
@@ -163,6 +172,7 @@ LanTaramaAdapter adapter;
             suankiIp.setVisibility(View.VISIBLE);
             kalanSayisi.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
+            lantaramaTv.setVisibility(View.GONE);
         //    pingGonder();
             PingGonder2();
             durBaslabutoncheck=true;
@@ -260,6 +270,7 @@ agAdi.setText(AgBilgisiFragment.AgSsid.replace('"' ,' ').replace(" ",""));
                 int iki=deger[1];
                 int uc=deger[2];
                 int dort=deger[3];
+                final long[] milis = {200};
                 final int[] prog = {0};
                 int toplam=(int)(Math.pow(2,deger2[0])*Math.pow(2,deger2[1])*Math.pow(2,deger2[2])*Math.pow(2,deger2[3]));
 
@@ -288,16 +299,30 @@ agAdi.setText(AgBilgisiFragment.AgSsid.replace('"' ,' ').replace(" ",""));
                                                 kalanSayisi.setText(toplam - 1 - prog[0] + " kaldı");
                                                 ip = subnetIp;
                                                 suankiIp.setText(ip);
-                                                if (pingKomutu(ip)&&finalJ!=0&&finalJ!=255&&finalK!=0&&finalK!=255&&finalL!=0&&finalL!=255&&finalM!=0&&finalM!=255) {
+                                                boolean kontroll=false;
+                                                if(finalM<10||(finalM>=90&&finalM<=110))
+                                               kontroll=pingKomutu(ip);
+
+                                                if (kontroll&&finalJ!=0&&finalJ!=255&&finalK!=0&&finalK!=255&&finalL!=0&&finalL!=255&&finalM!=0&&finalM!=255) {
                                                     items.add(new LanTaramaItems("", "", ip, ""));
 
                                                     recyclerView.setAdapter(adapter);
                                                 }
-                                                if(finalI==255)
+                                                if(finalM==10)
+                                                    milis[0] =30;
+                                                            else if(finalM==90)
+                                                                milis[0] =200;
+                                                            else if(finalM==110)
+                                                                milis[0] =30;
+
+                                                if(finalM==255)
                                                 {
                                                     suankiIp.setVisibility(View.GONE);
                                                     kalanSayisi.setVisibility(View.GONE);
                                                     progressBar.setVisibility(View.INVISIBLE);
+                                                    SpannableString dur = new SpannableString("Başla");
+                                                    dur.setSpan(new ForegroundColorSpan(Color.GREEN), 0, dur.length(), 0);
+                                                     menuItem.setTitle(dur);
                                                 }
                                                 prog[0]++;
                                             }
@@ -310,7 +335,7 @@ agAdi.setText(AgBilgisiFragment.AgSsid.replace('"' ,' ').replace(" ",""));
                                     }
                                 });
                                 try {
-                                    Thread.sleep(200);
+                                    Thread.sleep(milis[0]);
                                 } catch (Exception e) {
 
                                 }

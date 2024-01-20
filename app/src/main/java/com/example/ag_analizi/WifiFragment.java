@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.wifi.MloLink;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,12 +19,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +45,13 @@ import java.util.List;
  */
 public class WifiFragment extends Fragment {
 String[] channelwid={"20MHz","40MHz","80MHz","160MHz","80+80MHz","320MHz"};
+    private final static ArrayList<Integer> channelsFrequency = new ArrayList<Integer>(
+            Arrays.asList(0, 2412, 2417, 2422, 2427, 2432, 2437, 2442, 2447,
+                    2452, 2457, 2462, 2467, 2472, 2484));
+    String[] standartlar = {"N/A", "802.11a/b/g", "", "", "802.11n", "802.11ac", "802.11ax", "802.11ad", "802.11be"};
 WifiManager wifiManager;
     RecyclerView recyclerView;
+    String mesaj;
     List<ScanResult> scanResults;
     List<wifiSinyalitems> items;
     WifiTaramaAdapter adapter;
@@ -93,8 +111,8 @@ WifiManager wifiManager;
                 return;
             }
             scanResults = wifiManager.getScanResults();
-
-            for (ScanResult sr : scanResults) {
+            try {
+                for (ScanResult sr : scanResults) {
               /*  List<MloLink> mloLinks= null;
                 if (Build.VERSION.SDK_INT >= TIRAMISU) {
                     mloLinks = sr.getAffiliatedMloLinks();
@@ -108,7 +126,22 @@ WifiManager wifiManager;
           }
       }*/
 
-                items.add(new wifiSinyalitems(channelwid[sr.channelWidth], sr.SSID,/*Integer.toString(sr.level)*/sr.level+" dBm",sr.BSSID,sr.capabilities,sr.frequency+""));
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                       items.add(new wifiSinyalitems(getChannelFromFrequency(sr.frequency) + "", sr.SSID,/*Integer.toString(sr.level)*/sr.level + " dBm", sr.BSSID + "1", sr.capabilities, channelwid[sr.channelWidth], standartlar[sr.getWifiStandard()]));
+                     }
+                    else{
+                        items.add(new wifiSinyalitems(getChannelFromFrequency(sr.frequency) + "", sr.SSID,sr.level + " dBm", sr.BSSID, sr.capabilities, channelwid[sr.channelWidth],"N/A"));
+                    // httpdenem("https://api.macvendors.com/"+sr.BSSID,false);
+                    }
+                    //items.add(new wifiSinyalitems("", "", "", "", "", "", ""));
+
+                }
+            }
+            catch (Exception e)
+            {
+                mesaj=e.toString();
             }
         }
 
@@ -136,5 +169,10 @@ WifiManager wifiManager;
         recyclerView=view.findViewById(R.id.wifiTaramaRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
     }
+    public static int getChannelFromFrequency(int frequency) {
+        return channelsFrequency.indexOf(Integer.valueOf(frequency));
+    }
+
 }

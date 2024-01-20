@@ -9,7 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <TextView
+            android:id="@+id/lantaramaTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sonuçları Görüntülemek için Başlat butonuna basınız..."
+            android:layout_gravity="center"/>
     <androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical" android:id="@+id/lanTaramaHeaderClyt" android:layout_width="fill_parent" android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:autofit="http://schemas.android.com/apk/res-auto">
         <ProgressBar android:id="@+id/lanTaramaProgressBar" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="3.0dip" android:layout_marginTop="8.0dip" android:layout_marginStart="16.0dip" android:layout_marginEnd="16.0dip" autofit:layout_constraintEnd_toEndOf="parent" autofit:layout_constraintStart_toStartOf="parent" autofit:layout_constraintTop_toTopOf="parent" style="?android:progressBarStyleHorizontal" />
@@ -19,10 +24,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!-- TODO: Update blank fragment layout -->
         <androidx.recyclerview.widget.RecyclerView android:id="@+id/lanTaramaRecyclerView" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lan Tarama Fragment"
-        android:layout_gravity="center"/>
+
     </LinearLayout>
 </ScrollView>
